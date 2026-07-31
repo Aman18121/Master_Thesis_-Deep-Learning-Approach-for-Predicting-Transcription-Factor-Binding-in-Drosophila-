@@ -1,0 +1,95 @@
+# config_file_ml.yaml
+
+paths:
+  chip_dir: "/work/project/becstr_012/Ms_project/Testing/results/perbase_chip"
+  atac_dir: "/work/project/becstr_012/Ms_project/Testing/results/perbase_atac"
+  dna_path: "/work/project/becstr_012/Ms_project/Testing/results"
+  chrms_path: "/work/project/becstr_012/Ms_project/Testing/data/dm6_8kb_windows.bed"
+  TN5_cutsite: "/work/project/becstr_012/Ms_project/Testing/results/ATAC_fragments"
+
+params:
+  # Exclude dMyc, leaving the seven thesis target tracks
+  exclude_srr:
+    - "SRR1199487"
+
+  chip_names:
+    SRR1199487: "dMyc"
+    SRR23932844: "Twist / Twi"
+    SRR23932899: "Grainy head / Grh"
+    SRR5834704: "AbdA"
+    SRR5834714: "M1BP"
+    SRR5834718: "GAGA factor"
+    SRR5834723: "dRing"
+    SRR5834742: "Ubx"
+
+  atac_names:
+    SRR7813064: "S2 ATAC-seq"
+
+  # Chromosome-level split prevents overlap between datasets
+  training_chrms:
+    - "chr2L"
+    - "chr3R"
+    - "chrX"
+    - "chr4"
+
+  validation_chrms:
+    - "chr3L"
+
+  test_chrms:
+    - "chr2R"
+
+  # Repeated-seed experiments
+  model_seeds:
+    dna: [11]
+    atac: [11]
+    multimodal: [11]
+
+  # Maximum epochs
+  epochs_ATAC: 2
+  epochs_DNA: 2
+  epochs_multimodal: 2
+
+  # Batch sizes
+  batch_size_multimodal: 64
+  batch_size_atac: 64
+  batch_size_dna: 64
+
+  # Multimodal model
+  multimodal_callbacks:
+    multimodal_early_stop_patience: 5
+    multimodal_reduce_lr_patience: 2
+    multimodal_lr_decay_factor: 0.5
+
+  multimodal_loss_tuning:
+    multimodal_peak_threshold: 0.1
+    multimodal_peak_weight_multiplier: 10.0
+    multimodal_background_penalty: 1.0
+
+
+  # Used only by the gated-fusion implementation
+  multimodal_fusion:
+    atac_bias_weight: 0.70
+
+ 
+
+  # ATAC-only model
+  atac_callbacks:
+    atac_early_stop_patience: 5
+    atac_reduce_lr_patience: 2
+    atac_lr_decay_factor: 0.5
+
+  atac_loss_tuning:
+    atac_peak_threshold: 0.1
+    atac_peak_weight_multiplier: 10.0
+    atac_background_penalty: 1.0
+
+  # DNA-only model
+  dna_callbacks:
+    dna_early_stop_patience: 5
+    dna_reduce_lr_patience: 2
+    dna_lr_decay_factor: 0.5
+
+  dna_loss_tuning:
+    dna_peak_threshold: 0.1
+    dna_peak_weight_multiplier: 10.0
+    dna_background_penalty: 1.0
