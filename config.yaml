@@ -1,0 +1,12 @@
+srr_csv: "srr_list.csv"
+data_dir: "data"
+results_dir: "results"
+threads: 32
+
+windows:
+  size: 2000
+  stride: 800
+  
+reference:
+  genome_fasta_url: "ftp://ftp.ensembl.org/pub/release-109/fasta/drosophila_melanogaster/dna/Drosophila_melanogaster.BDGP6.32.dna.toplevel.fa.gz"
+  annotation_gtf_url: "ftp://ftp.ensembl.org/pub/release-109/gtf/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.32.109.gtf.gz"
